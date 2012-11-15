@@ -5,12 +5,17 @@
   {{name}}'s todo list
 <div id="list">
   {% for task in task_list %}
-    <div>{{task}}</div>
+    <div><input type="checkbox" name={{task}}>{{task}}</div>
   {% endfor %}
 </div>
+
+  <br/>
   Add a task:
   <br/>
   Task: <input type="text" name="task"> 
-  <input type="submit" value="Add">
+  <input type="submit" value="Add" name="add">
+  </br>
+  </br>
+  <input type="submit" value="Delete Tasks" name="delete">
 </form>
 {% endblock %}

@@ -23,10 +23,24 @@ task_dic = {} # name: task_list
 
 @app.route('/todo', methods=['GET', 'POST'])
 def todo():
-  # check if its a post
-  if request.method == 'POST':
+
+  print request.form.get('delete')
+  print request.form.get('add')
+  # check if its a delete post
+  if request.method == 'POST' and request.form.get('delete') and not request.form.get('add'):
+    keep_list = []
+    for task in task_dic[session['person']]:
+      if request.form.get(task) == None:
+        keep_list.append(task)
+    task_dic[session['person']] = keep_list
+
+  # check if its an add post
+  if request.method == 'POST' and request.form.get('add'):
     task_dic[session['person']].append(request.form.get('task'))
-    
+  
+
+
+
   if session['person'] not in task_dic:
     task_dic[session['person']] = []
     
@@ -46,3 +60,5 @@ def main():
 
 if __name__ == '__main__':
   app.run()
+
+
